@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../css/academia.css" th:href="@{/css/academia.css}" />
+
+    <title>Cursos IT</title>
+
+    <style>
+        input[type=text]:read-only {
+            background: white;
+        }
+    </style>
+
+</head>
+<body>
+<div th:replace="fragments/tabs :: nav">&nbsp;</div>
+
+<div class="container modal-content">
+    <form class="form-horizontal" th:action="@{'/cursos'}" th:object="${curso}" method="post">
+        <div class="modal-header">
+            <h4 class="modal-title">Mas Información</h4>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="textArea" class="col-lg-2 control-label">Nombre</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" rows="1" th:field="*{nombre}" readonly="readonly"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="textArea" class="col-lg-2 control-label">Descripcion</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" rows="3" th:field="*{descripcion}" readonly="readonly"/>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="textArea" class="col-lg-2 control-label">Fecha Inicio</label>
+                <div class="col-lg-10">
+
+                    <input id="datepic" type="date" data-date-format="MM-DD-YYYY" th:field="*{fechainicio}"
+                           th:value="${fechainicio}" readonly="readonly"/>
+                    <!--
+               <input id="datepic" type="text" th:field="*{fechainicio}"
+               th:value="${fechainicio}" />
+                 -->
+
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="textArea" class="col-lg-2 control-label">Fecha Fin</label>
+                <div class="col-lg-10">
+
+                    <input id="datepic2" type="date" data-date-format="MM-DD-YYYY" th:field="*{fechafin}"
+                           th:value="${fechafin}" readonly="readonly"/>
+
+                    <!--
+               <input id="datepic2" type="text" th:field="*{fechafin}"
+               th:value="${fechafin}" />
+                 -->
+
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="textArea" class="col-lg-2 control-label">Cupo</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" rows="1" th:field="*{cupo}" readonly="readonly"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="textArea" class="col-lg-2 control-label">Costo</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" rows="1" th:field="*{costo}" readonly="readonly"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="textArea" class="col-lg-2 control-label">Dias de Cursado</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" rows="1" th:field="*{horario.dias}" readonly="readonly"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="textArea" class="col-lg-2 control-label">Hora Inicio</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" rows="1" th:field="*{horario.horainicio}" readonly="readonly"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="textArea" class="col-lg-2 control-label">Hora Fin</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" rows="1" th:field="*{horario.horafin}" readonly="readonly"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="textArea" class="col-lg-2 control-label">Docente</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" rows="1" th:field="*{docente}" readonly="readonly"/>
+                </div>
+            </div>
+
+            <div class="form-group" th:unless="${#lists.isEmpty(curso.alumnos)}">
+                <label for="select" class="col-lg-2 control-label">Alumnos</label>
+                <div class="col-lg-10">
+                    <select multiple="" class="form-control" id="select">
+                        <option th:each="a : ${curso.alumnos}" th:if="${curso != null}" >
+                            <td th:value="${a.id}" th:text="${{a.getNombre() + ' ' + a.getApellido()}}"></td>
+
+                        </option>
+
+                    </select>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="modal-footer">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="button" th:onclick="'window.location.href=\'' + @{/cursos} + '\''" class="btn btn-default">Volver</button>
+
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+
+<div th:replace="fragments/footer :: 'footer'">&copy; 2013 The Static Templates</div>
+</body>
+</html>

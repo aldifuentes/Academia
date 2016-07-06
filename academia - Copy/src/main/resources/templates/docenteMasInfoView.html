@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../css/academia.css" th:href="@{/css/academia.css}" />
+
+    <title>Cursos IT</title>
+
+    <style>
+        input[type=text]:read-only {
+            background: white;
+        }
+    </style>
+
+</head>
+<body>
+<div th:replace="fragments/tabs :: nav">&nbsp;</div>
+
+<div class="container modal-content">
+    <form class="form-horizontal" th:action="@{'/docentes'}" th:object="${docente}" method="post">
+        <div class="modal-header">
+            <h4 class="modal-title">Mas Información</h4>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="input" class="col-lg-2 control-label">Nombre</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" rows="1" th:field="*{nombre}" readonly="readonly"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input" class="col-lg-2 control-label">Apellido</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" rows="1" th:field="*{apellido}" readonly="readonly"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input" class="col-lg-2 control-label">DNI</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" rows="1" th:field="*{dni}" readonly="readonly"/>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="textArea" class="col-lg-2 control-label">Fecha Nacimiento</label>
+                <div class="col-lg-10">
+
+                    <input id="datepic" type="date" data-date-format="MM-DD-YYYY" th:field="*{fechaNacimiento}"
+                           th:value="${fechaNacimiento}" readonly="readonly"/>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="input" class="col-lg-2 control-label">Dirección</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" rows="1" th:field="*{direccion}" readonly="readonly" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input" class="col-lg-2 control-label">Correo</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" rows="1" th:field="*{correo}" readonly="readonly"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input" class="col-lg-2 control-label">Telefono</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" rows="1" th:field="*{telefono}" readonly="readonly"/>
+                </div>
+            </div>
+
+
+            <div class="form-group" th:unless="${#lists.isEmpty(docente.cursos)}">
+                <label for="select" class="col-lg-2 control-label">Cursos a cargo</label>
+                <div class="col-lg-10">
+                    <select multiple="" class="form-control" id="select">
+                        <option th:each="c : ${docente.cursos}" th:if="${docente != null}">
+                            <td th:value="${c.id}" th:text="${c.nombre}"></td>
+
+                        </option>
+
+                    </select>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <div class="modal-footer">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="button" th:onclick="'window.location.href=\'' + @{/docentes} + '\''" class="btn btn-default">Volver</button>
+
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+
+<div th:replace="fragments/footer :: 'footer'">&copy; 2013 The Static Templates</div>
+</body>
+</html>
